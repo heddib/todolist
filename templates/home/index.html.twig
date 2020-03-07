@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Liste des utilisateurs</h1>
+
+    {% if users is not empty %}
+    <table>
+        <thread>
+            <tr>   
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Date d'inscription</th>
+                <th>Tâches</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.created_at|date("d/m/Y") }}</td>
+                    <td>{{ user.tasks }}</td>
+                    <td>
+                        <a href="{{ path('view_user', {'id': user.id}) }}">
+                            Voir l'utilisateur
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %} 
+        <p>Il n'y a pas encore d'utilisateurs. :(</p>
+    {% endif %}
+    <h2>Ajouter un utilisateur</h2>
+    {{ form(form_new_user) }}
+</div>
+{% endblock %}
