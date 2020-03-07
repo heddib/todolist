@@ -18,11 +18,12 @@ class HomeController extends AbstractController
         $pdo = $this->getDoctrine()->getManager();
 
         $user = new User();
-        $user->setCreatedAt(new \DateTime('now'));
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Ajout de la date d'inscription
+            $user->setCreatedAt(new \DateTime('now'));
             $pdo->persist($user);
             $pdo->flush();
         }
