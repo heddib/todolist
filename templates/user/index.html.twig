@@ -4,19 +4,19 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container main-container">
     <h1>Liste des utilisateurs</h1>
 
     {% if users is not empty %}
-    <table>
-        <thread>
-            <tr>   
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Date d'inscription</th>
-                <th>Tâches</th>
-                <th></th>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Date d'inscription</th>
+                <th scope="col">Tâches</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -25,10 +25,10 @@
                     <td>{{ user.firstname }}</td>
                     <td>{{ user.lastname }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.created_at|date("d/m/Y") }}</td>
-                    <td>{{ user.tasks }}</td>
+                    <td>{{ user.createdAt|date("d/m/Y") }}</td>
+                    <td>{{ user.tasks.count }}</td>
                     <td>
-                        <a href="{{ path('view_user', {'id': user.id}) }}">
+                        <a href="{{ path('view_user', {'id': user.id}) }}" class="btn btn-info">
                             Voir l'utilisateur
                         </a>
                     </td>
@@ -39,6 +39,7 @@
     {% else %} 
         <p>Il n'y a pas encore d'utilisateurs. :(</p>
     {% endif %}
+    <br/>
     <h2>Ajouter un utilisateur</h2>
     {{ form(form_new_user) }}
 </div>

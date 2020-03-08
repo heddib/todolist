@@ -33,7 +33,7 @@ class Task
     private $user;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
     private $state;
 
@@ -78,12 +78,12 @@ class Task
         return $this;
     }
 
-    public function getState(): ?int
+    public function getState(): ?bool
     {
         return $this->state;
     }
 
-    public function setState(int $state): self
+    public function setState(bool $state): self
     {
         $this->state = $state;
 

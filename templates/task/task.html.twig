@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tâche &raquo; {{ task.name }}{% endblock %}
+
+{% block body %}
+
+<div class="container main-container">
+    <h2>Modifier la tâche : {{ task.name }}</h2>
+    {{ form(form_edit_task) }}
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur &raquo; {{ user.firstname }}{% endblock %}
+
+{% block body %}
+
+<div class="container main-container">
+    <h2>Liste des tâches de : {{ user.firstname }}</h2>
+    {% if user.tasks is not empty %}
+    <table class="table">
+        <thread>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">État</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in user.tasks %}
+                <tr>
+                    <td scope="row">{{ task.id }}</td>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.deadline|date("d/m/Y") }}</td>
+                    <td>{{ task.state ? 'Validée' : 'En cours' }}</td>
+                    <td>
+                        <a href="{{ path('validate_task', {'id': task.id}) }}" class="btn btn-success">
+                            <i class="fa fa-check"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('delete_task', {'id': task.id}) }}" class="btn btn-danger">
+                            <i class="fa fa-close"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %} 
+        <p>{{ user.firstname }} n'a pas encore de tâches. :(</p>
+        <a href="{{ path('tasks') }}" class="btn btn-primary">Ajouter une tâche</a>
+    {% endif %}
+    <h2>Modifier l'utilisateur : {{ user.firstname }}</h2>
+    {{ form(form_edit_user) }}
+</div>
+{% endblock %}
